@@ -1,0 +1,16 @@
+create typescript config in project/folder
+-> tsc --init
+
+set typescript to compile for target framework
+--> "moduleResolution": "framework_name"
+
+use in node
+--> "moduleResolution": "node"
+
+execute typescript directly in the CLI
+--> npm package: ts-node
+
+
+add types to node_modules
+-> add @types/lib_name
+
