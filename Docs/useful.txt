@@ -14,3 +14,10 @@ execute typescript directly in the CLI
 add types to node_modules
 -> add @types/lib_name
 
+
+package.json - custom scripts
+--> custom script name --> npm run <custom_script_name>
+
+debugger:
+configuration -> restart: true
+
