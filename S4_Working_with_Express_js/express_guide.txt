@@ -1,0 +1,7 @@
+body-parser 
+
+--> is most probably included in express
+--> body parser should be before all handlers
+--> registers a middleware that parses the request
+    urlencoded() parses form requests
+    return an key value pair object
