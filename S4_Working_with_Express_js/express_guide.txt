@@ -5,3 +5,8 @@ body-parser
 --> registers a middleware that parses the request
     urlencoded() parses form requests
     return an key value pair object
+
+
+'path' module provides utilities for working with file and directory paths.
+
+--> '..' defines automatically the OS dependent folder separator

@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 import { adminRouter } from './routes/admin';
 import { shopRouter } from './routes/shop';
@@ -22,7 +23,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //express has methods for each REST verb
 
-app.use(adminRouter);
+//path variable works as a prefix
+app.use('/admin',adminRouter);
 app.use(shopRouter);
+
+app.use((req,res,next)=>{
+    res.status(404).sendFile(path.join(__dirname, 'views', 'page_not_found.html'));
+});
 
 app.listen(3000);
