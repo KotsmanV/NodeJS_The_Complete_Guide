@@ -12,6 +12,10 @@ const app = express();
 //urlencoded() parses form requests
 //return an key value pair object
 app.use(bodyParser.urlencoded({ extended: false }));
+//Use this function to serve static files
+//Should be pointed towards a relevant folder
+//Can be used multiple times and point to different folders
+app.use(express.static(path.join(__dirname, 'public')));
 
 //filter the request through middlewares
 //calling next() to proceed
@@ -31,4 +35,4 @@ app.use((req,res,next)=>{
     res.status(404).sendFile(path.join(__dirname, 'views', 'page_not_found.html'));
 });
 
-app.listen(3000);
+app.listen(3001);
