@@ -12,9 +12,9 @@ router.get('/', (req, res, next) => {
     //              on the OS for the current project
     //res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
     console.log(`products`, products);
-    
+
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-    res.render('shop');
+    res.render('shop', { prods: products, pageTitle: 'Shop', path:'/' });
 });
 
 export {
