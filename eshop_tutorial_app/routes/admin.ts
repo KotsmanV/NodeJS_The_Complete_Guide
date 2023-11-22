@@ -13,7 +13,13 @@ const products: {}[] = [];
 // add-product GET
 router.get('/add-product', (req, res, next) => {
     // res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
-    res.render('add-product', { pageTitle: 'AddProduct', path: 'add-product' });
+    res.render('add-product', {
+        pageTitle: 'AddProduct',
+        path: 'add-product',
+        activeAddProduct: true,
+        formsCSS: true,
+        productCSS: true
+    });
 });
 
 // add-product POST

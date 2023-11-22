@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\Understanding_the_basics\\app.js",
+            "program": "${workspaceFolder}\\eshop_tutorial_app\\app.ts",
             "restart": true,            
         }
     ]

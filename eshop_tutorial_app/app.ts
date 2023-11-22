@@ -8,35 +8,48 @@ import { shopRouter } from './routes/shop';
 
 const app = express();
 
-
+//------------------------------------------------------------------------------
 //register the templating engine
 //for handlebars, the registered name can be used as the file extension
 // ex. handlebars, hbs
-app.engine('hbs', handlebars.engine({
-    extname: "hbs",
-    defaultLayout: false,
-    layoutsDir: "views/layouts/",
-    // helpers:{
-    //     'ifGreaterThan' : (val1:number, val2:number)=>{
-    //         return .fn(this);
-    //         return val1 > val2;
-    //     },
-    //     'ifEquals' : (val1:number, val2:number)=>{
-    //         return val1 === val2;
-    //     }
-    // }
-}));
 
+// app.engine('hbs', handlebars.engine({
+//     //the extension name has to be set explicitly if it's not 'handlebars'
+//     //this applies only for the main layout file
+//     extname: 'hbs',
+//     defaultLayout: 'main',
+//     layoutsDir: "views/layouts/",
+//     helpers:{
+//         'ifGreaterThan' : (val1:number, val2:number)=>{
+//             return val1 > val2;
+//         },
+//         'ifEquals' : (val1:number, val2:number)=>{
+//             return val1 === val2;
+//         }
+//     }
+// }));
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
 //set gives access to node variables
 //see documentation
+//------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+//if the templating engine is not built in
+//register it above and use the name entered
+// app.set('view engine', 'hbs');
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
 //use this approach if the templating engine is built in express
-app.set('view engine', 'hbs');
+app.set('view engine', 'ejs');
 // app.set('view engine','pug');
 app.set('views', 'views');
 
 
-
+//------------------------------------------------------------------------------
 //body parser should be before all handlers
 //registers a middleware that parses the request
 //urlencoded() parses form requests
@@ -46,7 +59,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Should be pointed towards a relevant folder
 //Can be used multiple times and point to different folders
 app.use(express.static(path.join(__dirname, 'public')));
+//------------------------------------------------------------------------------
 
+
+//------------------------------------------------------------------------------
 //filter the request through middlewares
 //calling next() to proceed
 //until the response is sent
@@ -62,8 +78,8 @@ app.use('/admin', adminRouter);
 app.use(shopRouter);
 
 app.use((req, res, next) => {
-    // res.status(404).sendFile(path.join(__dirname, 'views', 'page_not_found.html'));
-    res.status(404).render('page_not_found', { pageTitle: 'Page not found' })
+    // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    res.status(404).render('404', { pageTitle: 'Page not found' })
 });
 
 app.listen(3001);
