@@ -1,3 +1,4 @@
+"use strict"
 const express = require('express');
 
 const users = require('./users');
@@ -12,10 +13,6 @@ router.get('/users', (req, res)=>{
 })
 
 router.get('/',(req, res)=>{
-    users.forEach(u=>{
-        console.log(u.name);
-    });
-    console.log();
     res.render('home',{
         pageTitle:'home'
     });
@@ -27,6 +24,5 @@ router.post('/add-user',(req,res)=>{
     });
     res.redirect('/users');
 })
-
 
 module.exports = router;
