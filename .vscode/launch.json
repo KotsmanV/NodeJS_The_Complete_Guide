@@ -1,7 +1,4 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
@@ -11,8 +8,23 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\eshop_tutorial_app\\app.ts",
-            "restart": true,            
+            "args": [
+                "${workspaceFolder}\\"
+            ],
+            "program": "${workspaceFolder}\\eshop_tutorial_app\\src\\app.ts",
+            "sourceMaps": true,
+            "smartStep": true,
+            "restart": true,
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Script: start",
+            "request": "launch",
+            "command": "npm run start",
+            "cwd": "${workspaceFolder}\\eshop_tutorial_app"
         }
     ]
 }
