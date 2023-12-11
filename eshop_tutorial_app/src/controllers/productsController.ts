@@ -4,7 +4,7 @@ import { title } from "process";
 
 function getAddProduct(req: Request, res: Response, next: NextFunction) {
     // res.sendFile(path.join(rootDir, 'views', 'add-product.html'));    
-    res.render('add-product', {
+    res.render('admin/add-product', {
         pageTitle: 'AddProduct',
         path: '/admin/add-product',
         activeAddProduct: true,
@@ -28,7 +28,7 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
 
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
     Product.fetchAll((products:Product[]) => {
-        res.render('shop', {
+        res.render('shop/product-list', {
             prods: products,
             pageTitle: 'Shop',
             path: '/',
