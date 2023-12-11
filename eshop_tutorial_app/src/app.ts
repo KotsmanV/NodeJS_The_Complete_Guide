@@ -5,6 +5,7 @@ import * as handlebars from 'express-handlebars';
 
 import { adminRouter } from './routes/admin';
 import { shopRouter } from './routes/shop';
+import { get404 } from './controllers/sharedController';
 
 const app = express();
 
@@ -13,21 +14,21 @@ const app = express();
 //for handlebars, the registered name can be used as the file extension
 // ex. handlebars, hbs
 
-// app.engine('hbs', handlebars.engine({
-//     //the extension name has to be set explicitly if it's not 'handlebars'
-//     //this applies only for the main layout file
-//     extname: 'hbs',
-//     defaultLayout: 'main',
-//     layoutsDir: "views/layouts/",
-//     helpers:{
-//         'ifGreaterThan' : (val1:number, val2:number)=>{
-//             return val1 > val2;
-//         },
-//         'ifEquals' : (val1:number, val2:number)=>{
-//             return val1 === val2;
-//         }
-//     }
-// }));
+app.engine('hbs', handlebars.engine({
+    //the extension name has to be set explicitly if it's not 'handlebars'
+    //this applies only for the main layout file
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: "src/views/layouts/",
+    helpers: {
+        'ifGreaterThan': (val1: number, val2: number) => {
+            return val1 > val2;
+        },
+        'ifEquals': (val1: number, val2: number) => {
+            return val1 === val2;
+        }
+    }
+}));
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
@@ -38,15 +39,15 @@ const app = express();
 //------------------------------------------------------------------------------
 //if the templating engine is not built in
 //register it above and use the name entered
-// app.set('view engine', 'hbs');
+app.set('view engine', 'hbs');
 //------------------------------------------------------------------------------
 
 
 //------------------------------------------------------------------------------
 //use this approach if the templating engine is built in express
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
 // app.set('view engine','pug');
-app.set('views', 'views');
+app.set('views', 'src/views');
 
 
 //------------------------------------------------------------------------------
@@ -76,10 +77,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 //path variable works as a prefix
 app.use('/admin', adminRouter);
 app.use(shopRouter);
-
-app.use((req, res, next) => {
-    // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-    res.status(404).render('404', { pageTitle: 'Page not found' })
-});
+app.use(get404);
 
 app.listen(3001);

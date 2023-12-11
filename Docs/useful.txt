@@ -6,6 +6,8 @@ set typescript to compile for target framework
 
 use in node
 --> "moduleResolution": "node"
+--> the correct types: import { Request,Response, NextFunction } from "express-serve-static-core"; 
+
 
 execute typescript directly in the CLI
 --> npm package: ts-node
