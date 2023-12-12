@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
 import { Product } from "../models/product";
 import { title } from "process";
+import { createAdminPaths, createShopPaths } from "../utils/routes.helper";
+import { ViewDTO } from "../models/viewDto";
 
 function getAddProduct(req: Request, res: Response, next: NextFunction) {
     // res.sendFile(path.join(rootDir, 'views', 'add-product.html'));    
-    res.render('admin/add-product', {
+    res.render(createAdminPaths("add-product"), {
         pageTitle: 'AddProduct',
-        path: '/admin/add-product',
+        path: createAdminPaths("add-product"),
         activeAddProduct: true,
         formsCSS: true,
         productCSS: true
@@ -28,7 +30,7 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
 
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
     Product.fetchAll((products:Product[]) => {
-        res.render('shop/product-list', {
+        res.render(createShopPaths("shop"), {
             prods: products,
             pageTitle: 'Shop',
             path: '/',
