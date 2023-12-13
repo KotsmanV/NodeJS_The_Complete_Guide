@@ -5,11 +5,17 @@ import { rootDir } from '../utils/path';
 const dataFilePath = path.join(rootDir, 'data', 'products.json');
 
 class Product{
-    constructor(title:string){
+    constructor(title:string, imageUrl:string, description:string, price:number){
         this.title = title;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = price;
     }
 
     title:string;
+    imageUrl:string;
+    description:string;
+    price:number;
 
     save(){
         getProductsFromFile((products:Product[])=>{

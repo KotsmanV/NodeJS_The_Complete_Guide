@@ -1,14 +1,17 @@
-type ShopRoutes = 'shop' | 'products' | 'cart';
-type AdminRoutes = 'add-product';
+type ShopRoutes = 'shop' | 'products' | 'cart' | 'index' | 'checkout' | 'orders';
+type AdminRoutes = 'add-product' | 'products';
 
 const shopPrefix = 'shop';
 const adminPrefix = 'admin'
 
 function createShopPaths(path:ShopRoutes){
     switch (path) {
-        case 'cart': return `${shopPrefix}/cart`;
-        case 'products': return '/';//shop/product-list;
+        case 'index': return `${shopPrefix}/index`;
         case 'shop': return `${shopPrefix}/shop`;
+        case 'products': return '/products';//shop/product-list;
+        case 'orders': return `${shopPrefix}/orders`;
+        case 'cart': return `${shopPrefix}/cart`;
+        case 'checkout': return `${shopPrefix}/checkout`;
         default: return '/';
     }
 }
@@ -16,6 +19,7 @@ function createShopPaths(path:ShopRoutes){
 function createAdminPaths(path:AdminRoutes){
     switch (path) {
         case 'add-product': return `${adminPrefix}/add-product`;
+        case 'products': return `${adminPrefix}/products`;
         default: return adminPrefix;
     }
 }
