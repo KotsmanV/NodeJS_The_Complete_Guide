@@ -111,6 +111,7 @@ main {
   background: white;
   border-radius: 3px;
   cursor: pointer;
+  padding: 3px;
 }
 
 .btn:hover,

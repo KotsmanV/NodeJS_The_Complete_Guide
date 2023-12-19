@@ -5,8 +5,8 @@ import { createAdminPaths, createShopPaths } from "../utils/routes.helper";
 import { ViewDTO } from "../models/viewDto";
 
 
-function getIndex(req: Request, res: Response, next: NextFunction){
-    Product.fetchAll((products:Product[]) => {
+function getIndex(req: Request, res: Response, next: NextFunction) {
+    Product.fetchAll((products: Product[]) => {
         res.render(createShopPaths("index"), {
             prods: products,
             pageTitle: 'Shop',
@@ -25,7 +25,7 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
     //res.sendFile(path.join(__dirname, '..', 'views', 'shop.html'));
 
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-    Product.fetchAll((products:Product[]) => {
+    Product.fetchAll((products: Product[]) => {
         res.render('shop/product-list', {
             prods: products,
             pageTitle: 'All Products',
@@ -37,8 +37,16 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
     })
 }
 
+function getProduct(req: Request, res: Response, next: NextFunction) {
+    const productId = parseFloat(req.params.productId);
+    Product.findById(productId, (product: Product) => {
+        console.log(product);
+    });
+    res.redirect('/');
+}
+
 function getCart(req: Request, res: Response, next: NextFunction) {
-    Product.fetchAll((products:Product[]) => {
+    Product.fetchAll((products: Product[]) => {
         res.render(createShopPaths("cart"), {
             pageTitle: 'Cart',
             path: createShopPaths("cart"),
@@ -49,7 +57,7 @@ function getCart(req: Request, res: Response, next: NextFunction) {
 }
 
 function getOrders(req: Request, res: Response, next: NextFunction) {
-    Product.fetchAll((products:Product[]) => {
+    Product.fetchAll((products: Product[]) => {
         res.render(createShopPaths("orders"), {
             pageTitle: 'Your Orders',
             path: createShopPaths("orders"),
@@ -60,7 +68,7 @@ function getOrders(req: Request, res: Response, next: NextFunction) {
 }
 
 function getCheckout(req: Request, res: Response, next: NextFunction) {
-    Product.fetchAll((products:Product[]) => {
+    Product.fetchAll((products: Product[]) => {
         res.render(createShopPaths("checkout"), {
             pageTitle: 'Checkout',
             path: createShopPaths("checkout"),
@@ -74,6 +82,7 @@ function getCheckout(req: Request, res: Response, next: NextFunction) {
 export {
     getIndex,
     getProducts,
+    getProduct,
     getCart,
     getCheckout,
     getOrders
