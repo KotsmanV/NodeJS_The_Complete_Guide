@@ -20,6 +20,7 @@ app.engine('hbs', handlebars.engine({
     extname: 'hbs',
     defaultLayout: 'main',
     layoutsDir: "src/views/layouts/",
+    partialsDir:'src/views/partials/',
     helpers: {
         'ifGreaterThan': (val1: number, val2: number) => {
             return val1 > val2;
@@ -27,7 +28,7 @@ app.engine('hbs', handlebars.engine({
         'ifEquals': (val1: number, val2: number) => {
             return val1 === val2;
         }
-    }
+    },
 }));
 //------------------------------------------------------------------------------
 

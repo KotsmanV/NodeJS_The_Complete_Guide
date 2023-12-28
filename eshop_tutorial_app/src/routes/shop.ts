@@ -2,7 +2,15 @@ import express from 'express';
 // import path from 'path';
 
 // import { rootDir } from '../utils/path';
-import { getCart, getCheckout, getIndex, getOrders, getProduct, getProducts } from '../controllers/shopController';
+import { 
+    getCart, 
+    postCart, 
+    getCheckout, 
+    getIndex, 
+    getOrders, 
+    getProduct, 
+    getProducts 
+} from '../controllers/shopController';
 
 
 const router = express.Router();
@@ -14,6 +22,7 @@ router.get('/products', getProducts);
 //otherwise, it will never fire up if needed
 router.get('/products/:productId', getProduct);
 router.get('/cart', getCart);
+router.post('/cart', postCart)
 router.get('/orders', getOrders);
 router.get('/checkout', getCheckout);
 

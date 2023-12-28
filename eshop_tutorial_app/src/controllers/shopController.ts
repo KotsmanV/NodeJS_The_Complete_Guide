@@ -3,16 +3,19 @@ import { Product } from "../models/product";
 import { title } from "process";
 import { createAdminPaths, createShopPaths } from "../utils/routes.helper";
 import { ViewDTO } from "../models/viewDto";
+import { Cart } from "../models/cart";
+
+const routePrefix = 'shop';
 
 
 function getIndex(req: Request, res: Response, next: NextFunction) {
     Product.fetchAll((products: Product[]) => {
-        res.render(createShopPaths("index"), {
+        res.render(`${routePrefix}/index`, {
             prods: products,
             pageTitle: 'Shop',
-            path: '/',
+            path: '/shop',
             hasProducts: products.length > 0,
-            activeIndex: true,
+            activeShop: true,
             productCSS: true
         });
     })
@@ -26,12 +29,12 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
 
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
     Product.fetchAll((products: Product[]) => {
-        res.render('shop/product-list', {
+        res.render(`${routePrefix}/product-list`, {
             prods: products,
             pageTitle: 'All Products',
             path: '/products',
             hasProducts: products.length > 0,
-            activeShop: true,
+            activeProducts: true,
             productCSS: true
         });
     })
@@ -40,14 +43,19 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
 function getProduct(req: Request, res: Response, next: NextFunction) {
     const productId = parseFloat(req.params.productId);
     Product.findById(productId, (product: Product) => {
-        console.log(product);
+        res.render(`${routePrefix}/product-details`, {
+            product: product,
+            pageTitle: `Details: ${product.title}`,
+            activeProducts: true,
+            productCSS: true,
+            path: `/products`
+        })
     });
-    res.redirect('/');
 }
 
 function getCart(req: Request, res: Response, next: NextFunction) {
     Product.fetchAll((products: Product[]) => {
-        res.render(createShopPaths("cart"), {
+        res.render(`${routePrefix}/cart`, {
             pageTitle: 'Cart',
             path: createShopPaths("cart"),
             activeCart: true,
@@ -56,9 +64,20 @@ function getCart(req: Request, res: Response, next: NextFunction) {
     })
 }
 
+function postCart(req: Request, res: Response, next: NextFunction) {
+    const productId:number = parseFloat(req.body.productId);
+    console.log(`from cart button: `, productId);
+
+    Product.findById(productId, (product: Product) => {
+        Cart.addProduct(productId, product.price);
+    })
+
+    res.redirect('/cart');
+}
+
 function getOrders(req: Request, res: Response, next: NextFunction) {
     Product.fetchAll((products: Product[]) => {
-        res.render(createShopPaths("orders"), {
+        res.render(`${routePrefix}/orders`, {
             pageTitle: 'Your Orders',
             path: createShopPaths("orders"),
             activeOrders: true,
@@ -84,6 +103,7 @@ export {
     getProducts,
     getProduct,
     getCart,
+    postCart,
     getCheckout,
     getOrders
 }

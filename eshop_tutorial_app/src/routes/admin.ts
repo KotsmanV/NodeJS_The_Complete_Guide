@@ -1,5 +1,12 @@
 import express from 'express';
-import { getAddProduct, getProducts, postAddProduct } from '../controllers/adminController';
+import { 
+    postDeleteProduct, 
+    getAddProduct, 
+    getEditProduct, 
+    getProducts, 
+    postAddProduct, 
+    postEditProduct 
+} from '../controllers/adminController';
 // import path from 'path';
 
 // import { rootDir } from '../utils/path';
@@ -15,6 +22,11 @@ router.get('/products', getProducts);
 
 // add-product POST
 router.post('/add-product', postAddProduct);
+
+router.get('/edit-product/:productId', getEditProduct);
+router.post('/edit-product', postEditProduct);
+
+router.post('/delete-product', postDeleteProduct)
 
 export {
     router as adminRouter
