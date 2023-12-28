@@ -11,7 +11,8 @@
             "args": [
                 "${workspaceFolder}\\"
             ],
-            "program": "${workspaceFolder}\\eshop_tutorial_app\\src\\app.ts",
+            "program": "${workspaceFolder}\\eshop_tutorial_app\\dist\\app.js",
+            "preLaunchTask": "tsc: watch - tsconfig.json",
             "sourceMaps": true,
             "smartStep": true,
             "restart": true,
