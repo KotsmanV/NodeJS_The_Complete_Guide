@@ -1,0 +1,21 @@
+{{#if cartIsEmpty}}
+<h1>Cart is empty!</h1>
+{{else}}
+<ul>
+    {{#each products}}
+    <li>
+        <p>
+            {{product.title}}
+            ({{quantity}})
+        </p>
+        <form action="/cart-remove-item" method="post">
+            <button class="btn" type="submit">Remove</button>
+            <input type="hidden" name="productId" value="{{product.id}}">
+        </form>
+
+    </li>
+    {{/each}}
+
+</ul>
+
+{{/if}}

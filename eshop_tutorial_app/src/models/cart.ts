@@ -56,6 +56,10 @@ class Cart {
             const cart: Cart = JSON.parse(fileContent.toString());
 
             const index = cart.products.findIndex(p => p.id === id);
+            if (index === -1) {
+                return;
+            }
+            
             const quantity = cart.products[index].quantity;
 
             cart.products.splice(index, 1);
@@ -67,6 +71,17 @@ class Cart {
                 console.log(err);
             })
         });
+    }
+
+    static getCart(cb: Function) {
+        fs.readFile(cartPath, (err, fileContent) => {
+            const cart: Cart = JSON.parse(fileContent.toString());
+            if (err) {
+                cb(null);
+            } else {
+                cb(cart);
+            }
+        })
     }
 }
 

@@ -54,25 +54,50 @@ function getProduct(req: Request, res: Response, next: NextFunction) {
 }
 
 function getCart(req: Request, res: Response, next: NextFunction) {
-    Product.fetchAll((products: Product[]) => {
-        res.render(`${routePrefix}/cart`, {
-            pageTitle: 'Cart',
-            path: createShopPaths("cart"),
-            activeCart: true,
-            productCSS: true
-        });
-    })
+    Cart.getCart((cart: Cart) => {
+        Product.fetchAll((products: Product[]) => {
+            const cartProducts: { product: Product, quantity: number }[] = [];
+
+            products.forEach(p => {
+                let cartProductData = cart.products.find(cp => cp.id === p.id);
+                if (cartProductData) {
+                    cartProducts.push({
+                        product: p,
+                        quantity: cartProductData.quantity
+                    })
+                }
+            });
+
+            res.render(`${routePrefix}/cart`, {
+                pageTitle: 'Cart',
+                path: `${routePrefix}/cart`,
+                products: cartProducts,
+                cartIsEmpty: cartProducts.length == 0,
+                activeCart: true,
+                productCSS: true
+            });
+        })
+    });
 }
 
 function postCart(req: Request, res: Response, next: NextFunction) {
-    const productId:number = parseFloat(req.body.productId);
-    console.log(`from cart button: `, productId);
+    const productId: number = parseFloat(req.body.productId);
 
     Product.findById(productId, (product: Product) => {
         Cart.addProduct(productId, product.price);
     })
 
     res.redirect('/cart');
+}
+
+function postCartRemoveItem(req: Request, res: Response, next: NextFunction){
+    const productId = parseInt(req.body.productId);
+
+    Product.findById(productId, (product:Product)=>{
+        Cart.deleteProduct(productId, product.price);
+        res.redirect('/cart')
+    })
+
 }
 
 function getOrders(req: Request, res: Response, next: NextFunction) {
@@ -104,6 +129,7 @@ export {
     getProduct,
     getCart,
     postCart,
+    postCartRemoveItem,
     getCheckout,
     getOrders
 }

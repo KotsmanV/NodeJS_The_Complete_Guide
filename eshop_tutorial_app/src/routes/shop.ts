@@ -9,7 +9,8 @@ import {
     getIndex, 
     getOrders, 
     getProduct, 
-    getProducts 
+    getProducts, 
+    postCartRemoveItem
 } from '../controllers/shopController';
 
 
@@ -23,6 +24,7 @@ router.get('/products', getProducts);
 router.get('/products/:productId', getProduct);
 router.get('/cart', getCart);
 router.post('/cart', postCart)
+router.post('/cart-remove-item', postCartRemoveItem)
 router.get('/orders', getOrders);
 router.get('/checkout', getCheckout);
 
