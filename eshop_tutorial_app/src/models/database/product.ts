@@ -1,5 +1,5 @@
 import * as Sequelize from "sequelize";
-import { dbContext } from '../utils/database';
+import { dbContext } from '../../data.access/database';
 
 export const Product = dbContext.define('product',{
     id:{

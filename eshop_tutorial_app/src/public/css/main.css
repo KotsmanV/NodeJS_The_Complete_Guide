@@ -104,6 +104,14 @@ main {
   max-width: fit-content;    
 }
 
+.image-container{
+  height: 20rem;
+}
+
+.image-container img{
+  height: 100%;
+}
+
 .btn {
   font: inherit;
   border: 1px solid #00695c;

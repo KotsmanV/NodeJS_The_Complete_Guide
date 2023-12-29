@@ -7,7 +7,9 @@ import { adminRouter } from './routes/admin';
 import { shopRouter } from './routes/shop';
 import { get404 } from './controllers/shared.controller';
 
-import { dbContext } from './utils/database';
+import { dbContext, defineTableRelations } from './data.access/database';
+import { Product } from './models/database/product';
+import { User } from './models/database/user';
 
 const app = express();
 
@@ -22,7 +24,7 @@ app.engine('hbs', handlebars.engine({
     extname: 'hbs',
     defaultLayout: 'main',
     layoutsDir: "src/views/layouts/",
-    partialsDir:'src/views/partials/',
+    partialsDir: 'src/views/partials/',
     helpers: {
         'ifGreaterThan': (val1: number, val2: number) => {
             return val1 > val2;
@@ -82,11 +84,13 @@ app.use('/admin', adminRouter);
 app.use(shopRouter);
 app.use(get404);
 
-dbContext.sync({
-    
-}).then((result)=>{
-    // console.log(`dbContext result: `,result);
-    app.listen(3001);
-}).catch(error=>{
-    console.log(`error: `, error);
-});
+
+// defineTableRelations();
+
+dbContext.sync()
+    .then((result) => {
+        // console.log(`dbContext result: `,result);
+        app.listen(3001);
+    }).catch(error => {
+        console.log(`error: `, error);
+    });

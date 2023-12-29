@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { mainFolderPath, rootDir } from '../utils/path';
-import { Cart } from './cart';
+import { mainFolderPath, rootDir } from '../../utils/path';
+import { Cart } from '../cart';
 
 const dataFilePath = path.join(mainFolderPath, 'data', 'products.json');
 

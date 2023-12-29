@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
-import { Product } from "../../models/product.filestorage.deprecated";
+import { Product } from "../../models/filestorage.deprecated/product.filestorage.deprecated";
 import { createShopPaths } from "../../utils/routes.helper";
 import { Cart } from "../../models/cart";
 

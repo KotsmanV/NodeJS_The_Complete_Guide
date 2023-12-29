@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
 import { createAdminPaths } from "../../utils/routes.helper";
-import { Product } from "../../models/product.filestorage.deprecated";
+import { Product } from "../../models/filestorage.deprecated/product.filestorage.deprecated";
 
 const routePrefix = 'admin';
 
