@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { rootDir } from '../utils/path';
+import { mainFolderPath, rootDir } from '../utils/path';
 import { Cart } from './cart';
 
-const dataFilePath = path.join(rootDir, 'data', 'products.json');
+const dataFilePath = path.join(mainFolderPath, 'data', 'products.json');
 
 interface Product {
     title: string;
@@ -14,7 +14,7 @@ interface Product {
 
     create(): void;
     update(): void;
-    //delete(id:number): void;
+    delete(id:number): void;
 }
 
 class Product implements Product {
@@ -51,27 +51,24 @@ class Product implements Product {
             const updatedProducts = [...products];
             updatedProducts[index] = this;
 
-            // fs.writeFile(dataFilePath, JSON.stringify(updatedProducts), (err) => {
-            //     console.log(err);
-            // });
-            fs.writeFileSync(dataFilePath, JSON.stringify(updatedProducts));
+            fs.writeFile(dataFilePath, JSON.stringify(updatedProducts), (err) => {
+                console.log(err);
+            });
         });
     }
 
-    static delete(id: number): void {
+    static delete(id: number) {
         getProductsFromFile((products: Product[]) => {
             const index = products.findIndex(p => p.id === id);
             const price = products[index].price;
             products.splice(index, 1);
 
-            // fs.writeFile(dataFilePath, JSON.stringify(products), (err) => {
-            //     if (!err) {
-            //         Cart.deleteProduct(id, price);
-            //     }
-            //     console.log(err);
-            // });
-            fs.writeFileSync(dataFilePath, JSON.stringify(products));
-            Cart.deleteProduct(id, price);
+            fs.writeFile(dataFilePath, JSON.stringify(products), (err) => {
+                if (!err) {
+                    Cart.deleteProduct(id, price);
+                }
+                console.log(err);
+            });
         });
     }
 
@@ -87,8 +84,8 @@ class Product implements Product {
     }
 }
 
-function getProductsFromFile(clb: Function) {
-    fs.readFile(dataFilePath, (err, fileContent) => {
+async function getProductsFromFile(clb: Function) {
+    await fs.readFile(dataFilePath, (err, fileContent) => {
         if (err) {
             return clb([]);
         }
