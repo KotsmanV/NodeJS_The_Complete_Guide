@@ -1,17 +1,17 @@
 import express from 'express';
+import {
+    getCart,
+    getCheckout,
+    getIndex,
+    getOrders,
+    getProduct,
+    getProducts,
+    postCart,
+    postCartRemoveItem
+} from '../controllers/shop.controller';
 // import path from 'path';
 
 // import { rootDir } from '../utils/path';
-import { 
-    getCart, 
-    postCart, 
-    getCheckout, 
-    getIndex, 
-    getOrders, 
-    getProduct, 
-    getProducts, 
-    postCartRemoveItem
-} from '../controllers/shopController';
 
 
 const router = express.Router();

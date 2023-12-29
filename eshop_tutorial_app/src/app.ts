@@ -5,7 +5,9 @@ import * as handlebars from 'express-handlebars';
 
 import { adminRouter } from './routes/admin';
 import { shopRouter } from './routes/shop';
-import { get404 } from './controllers/sharedController';
+import { get404 } from './controllers/shared.controller';
+
+import { dbContext } from './utils/database';
 
 const app = express();
 
@@ -80,4 +82,11 @@ app.use('/admin', adminRouter);
 app.use(shopRouter);
 app.use(get404);
 
-app.listen(3001);
+dbContext.sync({
+    
+}).then((result)=>{
+    // console.log(`dbContext result: `,result);
+    app.listen(3001);
+}).catch(error=>{
+    console.log(`error: `, error);
+});

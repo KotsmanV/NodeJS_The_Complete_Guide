@@ -6,7 +6,7 @@ import {
     getProducts, 
     postAddProduct, 
     postEditProduct 
-} from '../controllers/adminController';
+} from '../controllers/admin.controller.';
 // import path from 'path';
 
 // import { rootDir } from '../utils/path';

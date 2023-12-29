@@ -1,99 +1,28 @@
-import fs from 'fs';
-import path from 'path';
-import { mainFolderPath, rootDir } from '../utils/path';
-import { Cart } from './cart';
+import * as Sequelize from "sequelize";
+import { dbContext } from '../utils/database';
 
-const dataFilePath = path.join(mainFolderPath, 'data', 'products.json');
-
-interface Product {
-    title: string;
-    imageUrl: string;
-    description: string;
-    price: number;
-    id?: number;
-
-    create(): void;
-    update(): void;
-    delete(id:number): void;
-}
-
-class Product implements Product {
-    constructor(title: string, imageUrl: string, description: string, price: string, id?: string) {
-        this.title = title;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.price = parseFloat(price);
-
-        if (id) {
-            this.id = parseInt(id);
-        }
+export const Product = dbContext.define('product',{
+    id:{
+        type:Sequelize.INTEGER,
+        autoIncrement:true,
+        allowNull:false,
+        primaryKey:true
+    },
+    // title:Sequelize.STRING,
+    title:{
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    price:{
+        type:Sequelize.DECIMAL,
+        allowNull:false
+    },
+    imageUrl:{
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    description:{
+        type:Sequelize.STRING,
+        allowNull:false
     }
-
-    title: string;
-    imageUrl: string;
-    description: string;
-    price: number;
-    id?: number;
-
-    create(): void {
-        this.id = Math.round((Math.random() * 100000));
-        getProductsFromFile((products: Product[]) => {
-            products.push(this);
-            fs.writeFile(dataFilePath, JSON.stringify(products), (err) => {
-                console.log(err);
-            });
-        });
-    }
-
-    update(): void {
-        getProductsFromFile((products: Product[]) => {
-            const index = products.findIndex(p => p.id === this.id);
-            const updatedProducts = [...products];
-            updatedProducts[index] = this;
-
-            fs.writeFile(dataFilePath, JSON.stringify(updatedProducts), (err) => {
-                console.log(err);
-            });
-        });
-    }
-
-    static delete(id: number) {
-        getProductsFromFile((products: Product[]) => {
-            const index = products.findIndex(p => p.id === id);
-            const price = products[index].price;
-            products.splice(index, 1);
-
-            fs.writeFile(dataFilePath, JSON.stringify(products), (err) => {
-                if (!err) {
-                    Cart.deleteProduct(id, price);
-                }
-                console.log(err);
-            });
-        });
-    }
-
-    static fetchAll(clb: Function) {
-        getProductsFromFile(clb);
-    }
-
-    static findById(id: number, cb: Function) {
-        getProductsFromFile((products: Product[]) => {
-            const product: Product | undefined = products.find(p => p.id === id);
-            cb(product);
-        })
-    }
-}
-
-async function getProductsFromFile(clb: Function) {
-    await fs.readFile(dataFilePath, (err, fileContent) => {
-        if (err) {
-            return clb([]);
-        }
-        return clb(JSON.parse(fileContent.toString()) as Product[]);
-    })
-}
-
-
-export {
-    Product
-}
+});

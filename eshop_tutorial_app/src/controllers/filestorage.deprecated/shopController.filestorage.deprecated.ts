@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
-import { Product } from "../models/product";
-import { title } from "process";
-import { createAdminPaths, createShopPaths } from "../utils/routes.helper";
-import { ViewDTO } from "../models/viewDto";
-import { Cart } from "../models/cart";
+import { Product } from "../../models/product.filestorage.deprecated";
+import { createShopPaths } from "../../utils/routes.helper";
+import { Cart } from "../../models/cart";
 
 const routePrefix = 'shop';
 

@@ -1,4 +1,4 @@
-import { Product } from "./product";
+// import { Product } from "./product.filestorage.deprecated";
 import * as fs from 'fs';
 import * as path from 'path';
 import { mainFolderPath } from "../utils/path";
