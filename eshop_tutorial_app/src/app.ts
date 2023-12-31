@@ -8,6 +8,7 @@ import { shopRouter } from './routes/shop';
 import { get404 } from './controllers/shared.controller';
 
 import { dbContext, initializeDatabase } from './data.access/database';
+import { addUserToRequest } from './middleware/user.middleware';
 
 const app = express();
 
@@ -77,6 +78,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //express has methods for each REST verb
 
+app.use(addUserToRequest);
+
+
+
 //path variable works as a prefix
 app.use('/admin', adminRouter);
 app.use(shopRouter);
@@ -84,7 +89,7 @@ app.use(get404);
 
 
 initializeDatabase().then((result) => {
-    // console.log(`dbContext result: `,result);
+    console.log(`dbContext init: `,result);
     app.listen(3001);
 }).catch(error => {
     console.log(`error: `, error);

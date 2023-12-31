@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 import { environment } from '../environment';
-import { defineTableRelations } from './model.definitions';
+import { User, defineTableRelations } from './model.definitions';
 
 // const dbContext = new Sequelize({
 //     dialect: 'mssql',
@@ -24,9 +24,21 @@ import { defineTableRelations } from './model.definitions';
 const dbContext = new Sequelize(environment.sql.mysql);
 
 
-function initializeDatabase(){
+function initializeDatabase() {
     defineTableRelations();
-    return dbContext.sync({force:true});
+    return dbContext.sync({
+        // force:true
+    }).then(() => {
+        return User.findByPk(1);
+    }).then(user => {
+        if (!user) {
+            return User.create({
+                name: 'prometheus_666',
+                email: 'prometheus.666@gmail.com'
+            })
+        }
+        return user;
+    }).catch(error=> console.log(`db initialization error`));
 }
 
 

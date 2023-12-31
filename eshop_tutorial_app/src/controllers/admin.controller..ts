@@ -19,12 +19,29 @@ function postAddProduct(req: Request, res: Response, next: NextFunction) {
     const description = req.body.description;
     const price = req.body.price;
 
-    Product.create({
+    // Product.create({
+    //     title: title,
+    //     price: price,
+    //     imageUrl: imageUrl,
+    //     description: description,
+    //     // @ts-ignore
+    //     userId: req.user.id
+    // })
+
+
+    //Sequelize automatically creates functions for associated models
+    //which are called Magic Functions
+    //https://sequelize.org/docs/v6/core-concepts/assocs/
+    // @ts-ignore
+    req.user.createProduct({
         title: title,
         price: price,
         imageUrl: imageUrl,
-        description: description
-    }).then(result => {
+        description: description,
+        // @ts-ignore
+        userId: req.user.id
+    })
+    .then(result => {
         console.log(`Product create: `, result);
         res.redirect('/');
     }).catch(error => {
