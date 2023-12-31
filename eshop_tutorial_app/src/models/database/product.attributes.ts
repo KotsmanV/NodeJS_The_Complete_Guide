@@ -1,7 +1,6 @@
 import * as Sequelize from "sequelize";
-import { dbContext } from '../../data.access/database';
 
-export const Product = dbContext.define('product',{
+export const ProductAttributes:Sequelize.ModelAttributes<Sequelize.Model<any, any>, any> = {
     id:{
         type:Sequelize.INTEGER,
         autoIncrement:true,
@@ -14,7 +13,7 @@ export const Product = dbContext.define('product',{
         allowNull:false
     },
     price:{
-        type:Sequelize.DECIMAL,
+        type:Sequelize.DECIMAL(5,2),
         allowNull:false
     },
     imageUrl:{
@@ -25,4 +24,4 @@ export const Product = dbContext.define('product',{
         type:Sequelize.STRING,
         allowNull:false
     }
-});
+};
