@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
-import { Product } from "../models/database/product";
+import { Product } from "../data.access/model.definitions";
 
 const routePrefix = 'admin';
 

@@ -1,7 +1,6 @@
 import * as Sequelize from "sequelize";
-import { dbContext } from '../../data.access/database';
 
-export const User = dbContext.define('user',{
+export const UserAttributes:Sequelize.ModelAttributes<Sequelize.Model<any, any>, any> = {
     id:{
         type:Sequelize.INTEGER,
         autoIncrement:true,
@@ -13,4 +12,4 @@ export const User = dbContext.define('user',{
         allowNull:false
     },
     email:Sequelize.STRING
-});
+}

@@ -1,7 +1,6 @@
 import { Sequelize } from 'sequelize';
 import { environment } from '../environment';
-import { Product } from '../models/database/product';
-// import { User } from '../models/database/user';
+import { defineTableRelations } from './model.definitions';
 
 // const dbContext = new Sequelize({
 //     dialect: 'mssql',
@@ -24,22 +23,14 @@ import { Product } from '../models/database/product';
 
 const dbContext = new Sequelize(environment.sql.mysql);
 
-function defineTableRelations(){
-    // Product.belongsTo(User, {
-    //     constraints:true,
-    //     onDelete:'CASCADE'
-    // });
-    // User.hasMany(Product);
-}
 
 function initializeDatabase(){
-    // defineTableRelations();
+    defineTableRelations();
     return dbContext.sync({force:true});
 }
 
 
 export {
     dbContext,
-    defineTableRelations,
     initializeDatabase
 }

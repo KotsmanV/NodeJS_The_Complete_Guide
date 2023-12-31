@@ -7,9 +7,7 @@ import { adminRouter } from './routes/admin';
 import { shopRouter } from './routes/shop';
 import { get404 } from './controllers/shared.controller';
 
-import { dbContext, defineTableRelations } from './data.access/database';
-import { Product } from './models/database/product';
-// import { User } from './models/database/user';
+import { dbContext, initializeDatabase } from './data.access/database';
 
 const app = express();
 
@@ -85,12 +83,10 @@ app.use(shopRouter);
 app.use(get404);
 
 
-// defineTableRelations();
-
-dbContext.sync()
-    .then((result) => {
-        // console.log(`dbContext result: `,result);
-        app.listen(3001);
-    }).catch(error => {
-        console.log(`error: `, error);
-    });
+initializeDatabase().then((result) => {
+    // console.log(`dbContext result: `,result);
+    app.listen(3001);
+}).catch(error => {
+    console.log(`error: `, error);
+});
+    
