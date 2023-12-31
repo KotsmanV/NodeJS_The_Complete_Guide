@@ -4,7 +4,7 @@ import { title } from "process";
 import { createAdminPaths, createShopPaths } from "../utils/routes.helper";
 import { ViewDTO } from "../models/viewDto";
 import { Cart } from "../models/cart";
-import { User } from "../models/database/user";
+// import { User } from "../models/database/user";
 
 const routePrefix = 'shop';
 

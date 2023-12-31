@@ -9,7 +9,7 @@ import { get404 } from './controllers/shared.controller';
 
 import { dbContext, defineTableRelations } from './data.access/database';
 import { Product } from './models/database/product';
-import { User } from './models/database/user';
+// import { User } from './models/database/user';
 
 const app = express();
 
