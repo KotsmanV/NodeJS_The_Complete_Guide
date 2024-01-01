@@ -38,6 +38,9 @@ function initializeDatabase() {
             })
         }
         return user;
+    }).then(user=>{
+        //@ts-ignore
+        return user.createCart();
     }).catch(error=> console.log(`db initialization error`));
 }
 

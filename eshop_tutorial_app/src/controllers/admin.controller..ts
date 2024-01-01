@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
 import { Product } from "../data.access/model.definitions";
+import { Model } from "sequelize";
 
 const routePrefix = 'admin';
 
@@ -99,11 +100,15 @@ function postEditProduct(req: Request, res: Response, next: NextFunction) {
 
 
 function getProducts(req: Request, res: Response, next: NextFunction) {
-    Product.findAndCountAll()
+    // Product.findAndCountAll()
+    // @ts-ignore
+    req.user.getProducts()
         .then((result) => {
             res.render(`${routePrefix}/products`, {
-                prods: result.rows.map(p => p.dataValues),
-                hasProducts: result.count > 0,
+                // prods: result.rows.map(p => p.dataValues),
+                prods:result.map(r=>r.dataValues),
+                // hasProducts: result.count > 0,
+                hasProducts: result.map(r=>r.dataValues).length > 0,
                 pageTitle: 'Admin Products',
                 path: `${routePrefix}/products`,
                 activeAdminProducts: true,

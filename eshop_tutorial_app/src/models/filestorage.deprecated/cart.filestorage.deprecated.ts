@@ -1,7 +1,7 @@
 // import { Product } from "./product.filestorage.deprecated";
 import * as fs from 'fs';
 import * as path from 'path';
-import { mainFolderPath } from "../utils/path";
+import { mainFolderPath } from "../../utils/path";
 
 const cartPath = path.join(
     mainFolderPath,
