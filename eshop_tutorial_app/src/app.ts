@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import * as handlebars from 'express-handlebars';
+import cookieParser from 'cookie-parser';
 
 import { adminRouter } from './routes/admin';
 import { shopRouter } from './routes/shop';
@@ -9,6 +10,7 @@ import { get404 } from './controllers/shared.controller';
 
 import { dbContext, initializeDatabase } from './data.access/database';
 import { addUserToRequest } from './middleware/user.middleware';
+import { authRouter } from './routes/auth';
 
 const app = express();
 
@@ -53,7 +55,7 @@ app.set('view engine', 'hbs');
 // app.set('view engine','pug');
 app.set('views', 'src/views');
 
-
+app.use(cookieParser());
 //------------------------------------------------------------------------------
 //body parser should be before all handlers
 //registers a middleware that parses the request
@@ -85,13 +87,14 @@ app.use(addUserToRequest);
 //path variable works as a prefix
 app.use('/admin', adminRouter);
 app.use(shopRouter);
+app.use(authRouter);
 app.use(get404);
 
 
 initializeDatabase().then((result) => {
-    console.log(`dbContext init: `,result);
+    console.log(`dbContext init: `, 'success' /*result*/);
     app.listen(3001);
 }).catch(error => {
     console.log(`error: `, error);
 });
-    
+

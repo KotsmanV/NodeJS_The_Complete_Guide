@@ -187,33 +187,13 @@ form {
 }
 
 .card__actions {
-    padding: 1rem;
-    text-align: center;
-
-    display: grid;
-    grid-auto-flow: column;
-    justify-content: center;
-    gap: 1rem;
+  padding: 1rem;
+  text-align: center;
 }
 
-/* .card__actions button,
+.card__actions button,
 .card__actions a {
-    margin: 0 0.25rem;
-    text-decoration: none;        
-} */
-
-.card__actions a {
-  /* margin: 0 0.25rem; */
-  text-decoration: none;    
-  max-width: fit-content;    
-}
-
-.image-container{
-  height: 20rem;
-}
-
-.image-container img{
-  height: 100%;
+  margin: 0 0.25rem;
 }
 
 .btn {
@@ -232,10 +212,6 @@ form {
 .btn:active {
   background-color: #00695c;
   color: white;
-}
-
-.centered{
-  text-align: center;
 }
 
 .btn.danger {
