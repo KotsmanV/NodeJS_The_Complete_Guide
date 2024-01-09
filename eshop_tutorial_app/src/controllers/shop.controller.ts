@@ -15,7 +15,9 @@ function getIndex(req: Request, res: Response, next: NextFunction) {
                 pageTitle: 'Shop',
                 path: `/shop`,
                 activeShop: true,
-                productCSS: true
+                productCSS: true,
+                //@ts-ignore
+                isAuthenticated: req.user ? true : false
             });
         })
         .catch(error => {
@@ -32,7 +34,9 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
                 pageTitle: 'All Products',
                 path: `/products`,
                 activeProducts: true,
-                productCSS: true
+                productCSS: true,
+                //@ts-ignore
+                isAuthenticated: req.user ? true : false
             });
         })
         .catch(error => {
@@ -48,7 +52,9 @@ function getProduct(req: Request, res: Response, next: NextFunction) {
             pageTitle: `Details: ${product?.dataValues.title}`,
             activeProducts: true,
             productCSS: true,
-            path: `/products`
+            path: `/products`,
+            //@ts-ignore
+            isAuthenticated: req.user ? true : false
         })
     }).catch()
 }
@@ -74,7 +80,9 @@ function getCart(req: Request, res: Response, next: NextFunction) {
                 cartIsEmpty: products.length == 0,
                 activeCart: true,
                 productCSS: true,
-                cartCSS: true
+                cartCSS: true,
+                //@ts-ignore
+                isAuthenticated: req.user ? true : false
             });
         })
     }).catch(error => console.log(error));
@@ -183,7 +191,9 @@ function getOrders(req: Request, res: Response, next: NextFunction) {
             hasNoOrders: userOrders.length === 0,
             activeOrders: true,
             productCSS: true,
-            cartCSS: true
+            cartCSS: true,
+            //@ts-ignore
+            isAuthenticated: req.user ? true : false
         })
     })
 }

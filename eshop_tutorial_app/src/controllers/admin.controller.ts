@@ -10,7 +10,9 @@ function getAddProduct(req: Request, res: Response, next: NextFunction) {
         path: `${routePrefix}/add-product`,
         activeAddProduct: true,
         formsCSS: true,
-        productCSS: true
+        productCSS: true,
+        //@ts-ignore
+        isAuthenticated: req.user ? true : false
     });
 }
 
@@ -42,12 +44,12 @@ function postAddProduct(req: Request, res: Response, next: NextFunction) {
         // @ts-ignore
         userId: req.user.id
     })
-    .then(result => {
-        console.log(`Product create: `, result);
-        res.redirect('/');
-    }).catch(error => {
-        console.log(`Product create: `, error);
-    });
+        .then(result => {
+            console.log(`Product create: `, result);
+            res.redirect('/');
+        }).catch(error => {
+            console.log(`Product create: `, error);
+        });
 
 }
 
@@ -75,7 +77,9 @@ function getEditProduct(req: Request, res: Response, next: NextFunction) {
             product: product.dataValues,
             activeAddProduct: true,
             formsCSS: true,
-            productCSS: true
+            productCSS: true,
+            //@ts-ignore
+            isAuthenticated: req.user ? true : false
         });
     });
 }
@@ -106,13 +110,15 @@ function getProducts(req: Request, res: Response, next: NextFunction) {
         .then((result) => {
             res.render(`${routePrefix}/products`, {
                 // prods: result.rows.map(p => p.dataValues),
-                prods:result.map(r=>r.dataValues),
+                prods: result.map(r => r.dataValues),
                 // hasProducts: result.count > 0,
-                hasProducts: result.map(r=>r.dataValues).length > 0,
+                hasProducts: result.map(r => r.dataValues).length > 0,
                 pageTitle: 'Admin Products',
                 path: `${routePrefix}/products`,
                 activeAdminProducts: true,
-                productCSS: true
+                productCSS: true,
+                //@ts-ignore
+                isAuthenticated: req.user ? true : false
             });
         })
         .catch(error => {
