@@ -6,16 +6,16 @@ const dbContext = new Sequelize({
     dialect: 'mssql',
     database:'node_complete',
     dialectOptions: {
-        connectionString: environment.sql.connectionString,
+        connectionString: environment.db.sql.connectionString,
 
         //wher using MSSQL with Windows Authentication,
         //it must be set as below
         authentication: {
             type: 'ntlm',
             options: {
-                userName: environment.sql.username,
-                password: environment.sql.password,
-                domain: environment.sql.domain,
+                userName: environment.db.sql.username,
+                password: environment.db.sql.password,
+                domain: environment.db.sql.domain,
             }
         }
     },
