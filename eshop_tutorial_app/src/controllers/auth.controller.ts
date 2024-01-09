@@ -5,6 +5,8 @@ function getLogin(req: Request, res: Response, next: NextFunction) {
     // const cookies = transformCookieStringToObject(req.get('Cookie'));
 
     console.log('Cookies: ', req.cookies);
+    //@ts-ignore
+    console.log(`session: isLoggedIn =`, req.session.isLoggedIn);
 
     res.render('auth/login', {
         path: '/login',
@@ -17,7 +19,8 @@ function getLogin(req: Request, res: Response, next: NextFunction) {
 }
 
 function postLogin(req: Request, res: Response, next: NextFunction) {
-    res.setHeader('Set-Cookie', 'isLoggedIn=true');
+    //@ts-ignore
+    req.session.isLoggedIn = true;
     res.redirect('/');
 
 

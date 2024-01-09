@@ -13,7 +13,7 @@ const dbContext = new Sequelize({
         authentication: {
             type: 'ntlm',
             options: {
-                userName: environment.db.sql.username,
+                userName: environment.db.sql.user,
                 password: environment.db.sql.password,
                 domain: environment.db.sql.domain,
             }

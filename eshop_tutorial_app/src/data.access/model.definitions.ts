@@ -3,6 +3,7 @@ import { CartAttributes } from "../models/database/cart.attributes";
 import { OrderItemAttributes } from "../models/database/order-item.attributes";
 import { OrderAttributes } from "../models/database/order.attributes";
 import { ProductAttributes } from "../models/database/product.attributes";
+import { SessionAttributes } from "../models/database/session.attributes";
 import { UserAttributes } from "../models/database/user.attributes";
 import { dbContext } from "./database";
 
@@ -12,6 +13,7 @@ const Cart = dbContext.define('cart', CartAttributes);
 const CartItem = dbContext.define('cart_item', CartItemAttributes);
 const Order = dbContext.define('order', OrderAttributes);
 const OrderItem = dbContext.define('order_item', OrderItemAttributes);
+// const Session = dbContext.define('session', SessionAttributes);
 
 function defineTableRelations() {
     Product.belongsTo(User, {
@@ -38,5 +40,6 @@ export {
     User,
     Cart,
     CartItem,
-    defineTableRelations
+    defineTableRelations,
+    // Session
 }

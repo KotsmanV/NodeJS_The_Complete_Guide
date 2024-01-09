@@ -1,4 +1,6 @@
 import express from 'express';
+import session from 'express-session';
+import MSSQLStore from 'connect-mssql-v2';
 import bodyParser from 'body-parser';
 import path from 'path';
 import * as handlebars from 'express-handlebars';
@@ -11,8 +13,28 @@ import { get404 } from './controllers/shared.controller';
 import { dbContext, initializeDatabase } from './data.access/database';
 import { addUserToRequest } from './middleware/user.middleware';
 import { authRouter } from './routes/auth';
+import { environment } from './environment';
 
 const app = express();
+
+//configuration for connect-mssql-v2 store
+const storeConfig = {
+    driver: 'msnodesqlv8',
+    server: 'localhost',
+    database: 'node_complete',
+    authentication: {
+        type: 'ntlm',
+        options: {
+            userName: environment.db.sql.user,
+            password: environment.db.sql.password,
+            domain: environment.db.sql.domain,
+        }
+    },
+    options: {
+        trustedConnection: true,
+        trustServerCertificate: true
+    }
+};
 
 //------------------------------------------------------------------------------
 //register the templating engine
@@ -67,7 +89,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Can be used multiple times and point to different folders
 app.use(express.static(path.join(__dirname, 'public')));
 //------------------------------------------------------------------------------
-
+//session middleware init
+app.use(session({
+    secret: environment.secret,
+    resave: false,
+    saveUninitialized: false,
+    store: new MSSQLStore(storeConfig)
+}));
 
 //------------------------------------------------------------------------------
 //filter the request through middlewares

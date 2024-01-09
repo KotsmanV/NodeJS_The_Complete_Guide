@@ -1,3 +1,5 @@
+import { Model } from "sequelize";
+
 /**
  * Extended Request with the following guidelines
  * https://stackoverflow.com/questions/74471003/typescript-how-can-i-add-a-custom-property-to-express-request-with-two-or-mor/74508136
